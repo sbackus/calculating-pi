@@ -1,5 +1,7 @@
 # https://www.youtube.com/watch?v=ZoaEPXEcLFI
 
-for k in 1...100
-puts k
-end
+require_relative 'math_utils'
+
+pi = 9801 / (1103 * Math.sqrt(8))
+
+puts pi
