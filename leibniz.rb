@@ -15,3 +15,7 @@ for n in start.step(finish,by)
 end
 
 puts sum * 4
+
+
+
+# https://www.youtube.com/watch?v=HrRMnzANHHs&t=243s
