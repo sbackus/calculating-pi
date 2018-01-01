@@ -1,4 +1,6 @@
-# the sum of all the odd fractions is equal to pi over 4
+# Take the infinite series of all the odd fractions
+# alternate adding and subtracting them
+# the sum is equal to pi over 4
 # 1/1 - 1/3 + 1/5 - 1/7 + 1/9... = pi/4
 
 sum = 0
