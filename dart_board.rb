@@ -56,7 +56,7 @@ class DartBoard < Gosu::Window
       if dart.inside(RADIUS)
         dart.draw(Gosu::Color::RED)
       else
-        dart.draw(Gosu::Color::BLUE)
+        dart.draw(Gosu::Color::GREEN)
       end
     end
     @font.draw("inside: #{@inside_count}", 0,0,0)

@@ -10,3 +10,5 @@ end
 pi = 2/product
 
 puts pi
+
+# https://www.youtube.com/watch?v=HrRMnzANHHs&t=243s
