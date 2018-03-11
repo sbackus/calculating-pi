@@ -10,24 +10,7 @@
 # so the value of pi approximately n inside / n total * 4
 
 require 'gosu'
-
-class Dart
-  attr_accessor :x, :y
-  def initialize
-    @x = rand * DartBoard::DIAMETER
-    @y = rand * DartBoard::DIAMETER
-  end
-
-  def draw(color = Gosu::Color::WHITE)
-    Gosu.draw_rect(@x, @y, 3, 3, color)
-  end
-
-  def inside(radius)
-    center_x = radius
-    center_y = radius
-    (@x - center_x)**2 + (@y - center_y)**2 < radius**2
-  end
-end
+require 'pry'
 
 class DartBoard < Gosu::Window
   DIAMETER = 678
@@ -53,11 +36,7 @@ class DartBoard < Gosu::Window
   def draw
     @circle.draw 0, 0, 0
     @darts.each do |dart|
-      if dart.inside(RADIUS)
-        dart.draw(Gosu::Color::RED)
-      else
-        dart.draw(Gosu::Color::GREEN)
-      end
+      dart.draw
     end
     @font.draw("inside: #{@inside_count}", 0,0,0)
     @font.draw("total: #{@darts.length}", 0,@font_size,0)
@@ -70,14 +49,25 @@ class DartBoard < Gosu::Window
 
   def throw_dart
     dart = Dart.new
-    if dart.inside(RADIUS)
+    if dart.inside_the_circle
       @inside_count += 1
     end
     @darts << dart
   end
+end
 
+class Dart
+  attr_accessor :x, :y, :inside_the_circle
+  def initialize
+    @x = rand * DartBoard::DIAMETER
+    @y = rand * DartBoard::DIAMETER
+    @inside_the_circle = (@x - DartBoard::RADIUS)**2 + (@y - DartBoard::RADIUS)**2 < DartBoard::RADIUS**2
+    @color = @inside_the_circle ? Gosu::Color::RED : Gosu::Color::GREEN
+  end
+
+  def draw
+    Gosu.draw_rect(@x, @y, 3, 3, @color)
+  end
 end
 
 DartBoard.new.show
-
-
