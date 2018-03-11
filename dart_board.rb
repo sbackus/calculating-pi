@@ -9,9 +9,9 @@
 # so if the area of the square is one the area of the circle is pi/4
 # so the value of pi is approximately the number inside the circle / the total number of darts * 4
 
-require 'hasu'
+require 'gosu'
 
-class DartBoard < Hasu::Window
+class DartBoard < Gosu::Window
   DIAMETER = 678
   RADIUS = DIAMETER/2
   def initialize
@@ -28,4 +28,4 @@ class DartBoard < Hasu::Window
   end
 end
 
-DartBoard.run
+DartBoard.new.show
