@@ -7,66 +7,48 @@
 # the area of the circle divided by the area of the square
 # the area of a circle is pi r^2
 # so if the area of the square is one the area of the circle is pi/4
-# so the value of pi approximately n inside / n total * 4
+# so the value of pi is approximately the number inside the circle / the total number of darts * 4
 
 require 'gosu'
-require 'pry'
 
 class DartBoard < Gosu::Window
   DIAMETER = 678
   RADIUS = DIAMETER/2
   def initialize
     super DIAMETER, DIAMETER
-    self.caption = "Dart Board Simulation to calculate pi"
     @circle = Gosu::Image.new('assets/circle.png')
-    @darts = []
-    @inside_count = 0
-    @outside_count = 0
-    @font_size = 50
-    @font = Gosu::Font.new(@font_size)
+    @darts =[]
   end
 
   def update
-    5.times do
-      throw_dart
-    end
-    estimate_pi
+    100.times{@darts << Dart.new}
+    pi = 4.0*@darts.count{|d|d.inside_the_circle?}/@darts.length
+    puts pi
   end
 
   def draw
-    @circle.draw 0, 0, 0
-    @darts.each do |dart|
-      dart.draw
-    end
-    @font.draw("inside: #{@inside_count}", 0,0,0)
-    @font.draw("total: #{@darts.length}", 0,@font_size,0)
-    @font.draw("Pi: #{@pi}", 0, @font_size * 2 ,0)
-  end
-
-  def estimate_pi
-    @pi = @inside_count * 1.0 / @darts.length * 4
-  end
-
-  def throw_dart
-    dart = Dart.new
-    if dart.inside_the_circle
-      @inside_count += 1
-    end
-    @darts << dart
+    @darts.map(&:draw)
+    @circle.draw(0,0,0)
   end
 end
 
 class Dart
-  attr_accessor :x, :y, :inside_the_circle
+  attr_reader :x, :y
+
   def initialize
     @x = rand * DartBoard::DIAMETER
     @y = rand * DartBoard::DIAMETER
-    @inside_the_circle = (@x - DartBoard::RADIUS)**2 + (@y - DartBoard::RADIUS)**2 < DartBoard::RADIUS**2
-    @color = @inside_the_circle ? Gosu::Color::RED : Gosu::Color::GREEN
+    @size = 3
+    @color = Gosu::Color::GREEN
+  end
+
+  def inside_the_circle?
+    r = DartBoard::RADIUS
+    (@x - r)**2 + (@y - r)**2 <= r**2
   end
 
   def draw
-    Gosu.draw_rect(@x, @y, 3, 3, @color)
+    Gosu.draw_rect(@x,@y,@size,@size,@color)
   end
 end
 
