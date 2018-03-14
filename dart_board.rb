@@ -41,4 +41,5 @@ class Dart
   def draw
     Gosu.draw_rect(@x,@y,@size,@size,@color)
   end
+end
 DartBoard.new.show
