@@ -28,4 +28,17 @@ class DartBoard < Gosu::Window
   end
 end
 
+class Dart
+  attr_reader :x, :y
+
+  def initialize
+    @x = rand * DartBoard::DIAMETER
+    @y = rand * DartBoard::DIAMETER
+    @size = 3
+    @color = Gosu::Color::RED
+  end
+
+  def draw
+    Gosu.draw_rect(@x,@y,@size,@size,@color)
+  end
 DartBoard.new.show
