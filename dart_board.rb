@@ -35,7 +35,11 @@ class Dart
     @x = rand * DartBoard::DIAMETER
     @y = rand * DartBoard::DIAMETER
     @size = 3
-    @color = Gosu::Color::RED
+    @color = Gosu::Color::GREEN
+  end
+
+  def inside_the_circle?
+
   end
 
   def draw
